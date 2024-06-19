@@ -1,0 +1,81 @@
+generator kysely {
+  provider = "prisma-kysely"
+  output = "../src/db"
+  fileName = "types.ts"
+  enumFileName = "enums.ts"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model Tutorial {
+  id                  String           @id
+  tutorialname        String
+  tutorialdescription String?
+  categoryid          String
+  status              String
+  createdat           DateTime         @db.Timestamptz(6)
+  updatedat           DateTime         @db.Timestamptz(6)
+  bm25_id             Int              @default(autoincrement())
+  TutorialCategory    TutorialCategory @relation(fields: [categoryid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  TutorialTopic       TutorialTopic[]
+}
+
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model TutorialCategory {
+  id           String     @id
+  categoryname String     @unique
+  createdat    DateTime   @db.Timestamptz(6)
+  updatedat    DateTime   @db.Timestamptz(6)
+  bm25_id      Int        @default(autoincrement())
+  Tutorial     Tutorial[]
+}
+
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model TutorialSubTopic {
+  id                  String        @id
+  subtopicname        String
+  topicid             String
+  order               Int
+  subtopicdescription String?
+  content             String?
+  writerid            String?
+  reviewerid          String?
+  writerassignedat    DateTime?     @db.Timestamptz(6)
+  reviewerassignedat  DateTime?     @db.Timestamptz(6)
+  status              String
+  createdat           DateTime      @db.Timestamptz(6)
+  updatedat           DateTime      @db.Timestamptz(6)
+  bm25_id             Int           @default(autoincrement())
+  TutorialTopic       TutorialTopic @relation(fields: [topicid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model TutorialTopic {
+  id               String             @id
+  topicname        String
+  tutorialid       String
+  topicdescription String?
+  order            Int
+  createdat        DateTime           @db.Timestamptz(6)
+  updatedat        DateTime           @db.Timestamptz(6)
+  bm25_id          Int                @default(autoincrement())
+  TutorialSubTopic TutorialSubTopic[]
+  Tutorial         Tutorial           @relation(fields: [tutorialid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model mock_items {
+  id                    Int       @id @default(autoincrement())
+  description           String?
+  rating                Int?
+  category              String?   @db.VarChar(255)
+  in_stock              Boolean?
+  metadata              Json?
+  created_at            DateTime? @db.Timestamp(6)
+  last_updated_date     DateTime? @db.Date
+  latest_available_time DateTime? @db.Time(6)
+}
