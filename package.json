@@ -1,7 +1,7 @@
 {
-  "name": "support-system-backend.ineuron.ai",
+  "name": "parade-db-search",
   "version": "1.0.0",
-  "description": "chat service for ineuron support system",
+  "description": "ParadeDB search POC",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
@@ -11,17 +11,13 @@
     "build": "npm run clean && tsc",
     "lint:fix": "eslint --fix --ext .ts ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iNeuron-SDE-Team/support-system-backend.ineuron.ai.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iNeuron-SDE-Team/support-system-backend.ineuron.ai/issues"
+    "url": "https://github.com/code-raushan/paradedb-search/issues"
   },
-  "homepage": "https://github.com/iNeuron-SDE-Team/support-system-backend.ineuron.ai#readme",
+  "homepage": "https://github.com/code-raushan/paradedb-search#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
