@@ -1,7 +1,9 @@
+import { Kysely, PostgresDialect } from 'kysely';
 import { Pool } from 'pg';
 import config from '../config';
 import { InternalServerError } from '../errors/internal-server.error';
 import logger from '../utils/logger';
+import { DB } from './types';
 
 export const pool = new Pool({
   host: config.PG_DATABASE_HOST,
@@ -10,6 +12,12 @@ export const pool = new Pool({
   port: Number(config.PG_DATABASE_PORT),
   database: config.PG_DATABASE,
 });
+
+const dialect = new PostgresDialect({
+  pool
+});
+
+export const db = new Kysely<DB>({ dialect });
 
 export const checkForDBConnection = async () => {
   try {
