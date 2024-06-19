@@ -1,9 +1,9 @@
 import { readFileSync } from 'fs';
+import path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { pool } from './db';
 import logger from './utils/logger';
-
 
 interface Args {
     file: string;
@@ -25,12 +25,12 @@ const executeSQLFile = async (filePath: string) => {
 
     const client = await pool.connect();
     try {
-        const sql = readFileSync(filePath, 'utf-8');
+        const sql = readFileSync(path.resolve(__dirname, filePath), 'utf-8');
 
         await client.query(sql);
         logger.info(`Successfully executed ${filePath}`);
     } catch (error) {
-        logger.error(`error`);
+        logger.error(`error - ${error}`);
     } finally {
         client.release();
     }
