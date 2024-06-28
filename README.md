@@ -14,3 +14,5 @@ CALL paradedb.create_bm25(
 For executing the sql files, run the following command in the terminal:
 
 ` npx ts-node src/executeSQL.ts --file sql/index/<sql_file_name>.sql `
+
+`https://www.paradedb.com/`
