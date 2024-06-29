@@ -126,3 +126,8 @@ yarn-debug.log*
 yarn-error.log*
 
 data.json
+
+categories.json
+tutorials.json
+topics.json
+subtopics.json
