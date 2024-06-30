@@ -7,3 +7,10 @@ export const searchCategory = async (req: Request, res: Response, next: NextFunc
 
     next(response);
 };
+
+export const searchForMatchingTutorials = async (req: Request, res: Response, next: NextFunction) => {
+    const q = req.query.q as string;
+    const response = (await categorySearchService.searchForMatchingTutorials(q));
+
+    next(response);
+};
